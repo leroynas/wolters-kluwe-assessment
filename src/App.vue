@@ -4,7 +4,7 @@
 
     <div class="row">
       <div class="col-lg-6">
-        <Overview :items="items" @addItem="addItem" @updateItem="updateItem" />
+        <Overview :items="items" />
       </div>
 
       <div class="col-lg-6">
@@ -15,7 +15,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue';
+import { defineComponent, provide, ref } from 'vue';
 import { v4 as uuid } from 'uuid';
 
 import Overview from './views/Overview.vue';
@@ -33,6 +33,9 @@ export type Item = {
   status: STATUSES;
 };
 
+export type UpdateItem = (item: Item) => void;
+export type AddItem = (item: Item) => void;
+
 const INIT_ITEMS: Item[] = [
   {
     id: uuid(),
@@ -48,6 +51,9 @@ const INIT_ITEMS: Item[] = [
   },
 ];
 
+export const AddItemSymbol = Symbol('AddItemSymbol');
+export const UpdateItemSymbol = Symbol('UpdateItemSymbol');
+
 export default defineComponent({
   components: {
     Overview,
@@ -57,15 +63,18 @@ export default defineComponent({
   setup() {
     const items = ref(INIT_ITEMS);
 
-    const addItem = (item: Item) => {
+    const addItem: AddItem = (item: Item) => {
       items.value = [item, ...items.value];
     };
 
-    const updateItem = (item: Item) => {
+    const updateItem: UpdateItem = (item: Item) => {
       items.value = items.value.map((stateItem) =>
         stateItem.id === item.id ? item : stateItem,
       );
     };
+
+    provide(AddItemSymbol, addItem);
+    provide(UpdateItemSymbol, updateItem);
 
     return {
       items,
