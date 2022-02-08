@@ -9,6 +9,7 @@ import { defineComponent } from 'vue';
 
 enum TYPES {
   PRIMARY = 'primary',
+  SECONDARY = 'secondary',
   INFO = 'info',
 }
 
@@ -20,5 +21,7 @@ export default defineComponent({
       validator: (value: TYPES) => Object.values(TYPES).includes(value),
     },
   },
+
+  emits: ['click'],
 });
 </script>
