@@ -1,4 +1,19 @@
 {
+  "title": "Helpdesk v1.0",
+  "ticket": "Ticket",
+  "ticket-overview": "Overzicht tickets",
+  "ticket-statistics": "Statistieken tickets",
+  "full-name": "Volledige naam",
+  "subject": "Onderwerp",
+  "amount": "Aantal",
+  "status": "Status",
+  "actions": "Acties",
+  "view": "Bekijken",
+  "status-update": "Status update",
+  "add": "Toevoegen",
+  "all": "Allemaal",
   "open": "Open",
-  "closed": "Gesloten"
+  "closed": "Gesloten",
+  "close": "Sluiten",
+  "save": "Opslaan"
 }
