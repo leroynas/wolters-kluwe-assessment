@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <h1>Helpdesk v1.0</h1>
+    <h1>{{ $t('title') }}</h1>
 
     <div class="row">
       <div class="col-lg-6">
@@ -44,7 +44,7 @@ export type Item = {
   name: string;
   subject: string;
   status: STATUSES;
-  contact?: string;
+  contact: CONTACT;
 };
 
 export type UpdateItemFunc = (item: Item) => void;
@@ -56,12 +56,14 @@ const INIT_ITEMS: Item[] = [
     name: 'Jan Willem',
     subject: SUBJECTS.HOW_TO_LOGIN,
     status: STATUSES.OPEN,
+    contact: CONTACT.SMS,
   },
   {
     id: uuid(),
     name: 'Jan Willem',
     subject: SUBJECTS.HOW_TO_LOGIN,
     status: STATUSES.CLOSED,
+    contact: CONTACT.SMS,
   },
 ];
 
