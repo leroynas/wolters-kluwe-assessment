@@ -24,10 +24,12 @@
       <p>{{ $t(`contact.${item.contact}`) }}</p>
     </div>
 
-    <hr />
+    <hr v-if="item.status === STATUSES.OPEN" />
 
     <div class="form-group">
-      <label>Status:</label>
+      <label>
+        <strong>{{ $t('status') }}</strong>
+      </label>
 
       <select class="form-control" v-if="item.status === STATUSES.OPEN">
         <option :value="STATUSES.OPEN">{{ $t('open') }}</option>
