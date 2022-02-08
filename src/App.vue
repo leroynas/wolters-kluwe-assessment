@@ -17,38 +17,23 @@
 <script lang="ts">
 import { defineComponent, provide, ref } from 'vue';
 import { v4 as uuid } from 'uuid';
+import {
+  AddItemFunc,
+  CONTACT,
+  Item,
+  STATUSES,
+  SUBJECTS,
+  UpdateItemFunc,
+} from './App.types';
+
+import {
+  sendContactEmail,
+  sendContactPhone,
+  sendContactSMS,
+} from './api/contact';
 
 import Overview from './views/Overview.vue';
 import Statistics from './views/Statistics.vue';
-
-export enum SUBJECTS {
-  HOW_TO_LOGIN = 'how-to-login',
-  WHY_DOES_IE_NOT_WORK = 'why-does-ie-not-work',
-  LOST_PASSWORD = 'lost-password',
-  OTHER = 'other',
-}
-
-export enum CONTACT {
-  EMAIL = 'email',
-  SMS = 'sms',
-  PHONE = 'phone',
-}
-
-export enum STATUSES {
-  OPEN = 'open',
-  CLOSED = 'closed',
-}
-
-export type Item = {
-  id: string;
-  name: string;
-  subject: string;
-  status: STATUSES;
-  contact: CONTACT;
-};
-
-export type UpdateItemFunc = (item: Item) => void;
-export type AddItemFunc = (item: Item) => void;
 
 const INIT_ITEMS: Item[] = [
   {
@@ -87,6 +72,18 @@ export default defineComponent({
       items.value = items.value.map((stateItem) =>
         stateItem.id === item.id ? item : stateItem,
       );
+
+      switch (item.contact) {
+        case CONTACT.EMAIL:
+          sendContactEmail(item);
+          break;
+        case CONTACT.SMS:
+          sendContactSMS(item);
+          break;
+        case CONTACT.PHONE:
+          sendContactPhone(item);
+          break;
+      }
     };
 
     provide(AddItemSymbol, addItem);
