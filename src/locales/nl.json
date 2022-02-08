@@ -15,5 +15,17 @@
   "open": "Open",
   "closed": "Gesloten",
   "close": "Sluiten",
-  "save": "Opslaan"
+  "save": "Opslaan",
+  "contact-by-status-change": "Contact bij status wijziging",
+  "subjects": {
+    "how-to-login": "Hoe kan ik inloggen?",
+    "why-does-ie-not-work": "Waarom werkt de site niet in Internet Explorer?",
+    "lost-password": "Ik ben mijn wachtwoord vergeten!",
+    "other": "Overig"
+  },
+  "contact": {
+    "email": "E-mail",
+    "sms": "SMS",
+    "phone": "Telefonisch"
+  }
 }

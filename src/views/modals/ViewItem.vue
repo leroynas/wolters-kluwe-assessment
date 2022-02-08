@@ -1,18 +1,27 @@
 <template>
   <app-modal :title="$t('ticket')">
     <div class="form-group">
-      <label><strong>Volledige naam:</strong></label>
-      <p>Jan willem</p>
+      <label>
+        <strong>{{ $t('full-name') }}:</strong>
+      </label>
+
+      <p>{{ item.name }}</p>
     </div>
 
     <div class="form-group">
-      <label><strong>Onderwerp:</strong></label>
-      <p>Hoe kan ik inloggen?</p>
+      <label>
+        <strong>{{ $t('subject') }}:</strong>
+      </label>
+
+      <p>{{ $t(`subjects.${item.subject}`) }}</p>
     </div>
 
     <div class="form-group">
-      <label><strong>Contact bij status wijziging:</strong></label>
-      <p>SMS</p>
+      <label>
+        <strong>{{ $t('contact-by-status-change') }}</strong>
+      </label>
+
+      <p>{{ $t(`contact.${item.contact}`) }}</p>
     </div>
 
     <hr />
@@ -21,11 +30,11 @@
       <label>Status:</label>
 
       <select class="form-control" v-if="item.status === STATUSES.OPEN">
-        <option>open</option>
-        <option>gesloten</option>
+        <option :value="STATUSES.OPEN">{{ $t('open') }}</option>
+        <option :value="STATUSES.CLOSED">{{ $t('closed') }}</option>
       </select>
 
-      <p v-else>gesloten</p>
+      <p v-else>{{ $t('closed') }}</p>
     </div>
 
     <template v-slot:actions>
@@ -41,7 +50,7 @@
 </template>
 
 <script lang="ts">
-import { Item, STATUSES, UpdateItem, UpdateItemSymbol } from '@/App.vue';
+import { Item, STATUSES, UpdateItemFunc, UpdateItemSymbol } from '@/App.vue';
 import { defineComponent, inject, ref } from 'vue';
 
 export default defineComponent({
@@ -56,7 +65,7 @@ export default defineComponent({
 
   setup(props, { emit }) {
     const status = ref(props.item.status);
-    const updateItem = inject<UpdateItem>(UpdateItemSymbol);
+    const updateItem = inject<UpdateItemFunc>(UpdateItemSymbol);
 
     const handleUpdate = () => {
       updateItem?.({

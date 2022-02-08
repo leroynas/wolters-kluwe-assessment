@@ -20,7 +20,7 @@
 
       <tbody>
         <tr v-for="(items, subject) in list" :key="subject">
-          <td>{{ subject }}</td>
+          <td>{{ $t(`subjects.${subject}`) }}</td>
           <td>{{ items.length }}x</td>
         </tr>
       </tbody>

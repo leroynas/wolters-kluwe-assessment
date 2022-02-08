@@ -21,6 +21,19 @@ import { v4 as uuid } from 'uuid';
 import Overview from './views/Overview.vue';
 import Statistics from './views/Statistics.vue';
 
+export enum SUBJECTS {
+  HOW_TO_LOGIN = 'how-to-login',
+  WHY_DOES_IE_NOT_WORK = 'why-does-ie-not-work',
+  LOST_PASSWORD = 'lost-password',
+  OTHER = 'other',
+}
+
+export enum CONTACT {
+  EMAIL = 'email',
+  SMS = 'sms',
+  PHONE = 'phone',
+}
+
 export enum STATUSES {
   OPEN = 'open',
   CLOSED = 'closed',
@@ -31,22 +44,23 @@ export type Item = {
   name: string;
   subject: string;
   status: STATUSES;
+  contact?: string;
 };
 
-export type UpdateItem = (item: Item) => void;
-export type AddItem = (item: Item) => void;
+export type UpdateItemFunc = (item: Item) => void;
+export type AddItemFunc = (item: Item) => void;
 
 const INIT_ITEMS: Item[] = [
   {
     id: uuid(),
     name: 'Jan Willem',
-    subject: 'Hoe kan ik inloggen?',
+    subject: SUBJECTS.HOW_TO_LOGIN,
     status: STATUSES.OPEN,
   },
   {
     id: uuid(),
     name: 'Jan Willem',
-    subject: 'Hoe kan ik inloggen?',
+    subject: SUBJECTS.HOW_TO_LOGIN,
     status: STATUSES.CLOSED,
   },
 ];
@@ -63,11 +77,11 @@ export default defineComponent({
   setup() {
     const items = ref(INIT_ITEMS);
 
-    const addItem: AddItem = (item: Item) => {
+    const addItem: AddItemFunc = (item: Item) => {
       items.value = [item, ...items.value];
     };
 
-    const updateItem: UpdateItem = (item: Item) => {
+    const updateItem: UpdateItemFunc = (item: Item) => {
       items.value = items.value.map((stateItem) =>
         stateItem.id === item.id ? item : stateItem,
       );

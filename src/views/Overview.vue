@@ -21,7 +21,7 @@
       <tbody>
         <tr v-for="item in items" :key="item.id">
           <td>{{ item.name }}</td>
-          <td>{{ item.subject }}</td>
+          <td>{{ $t(`subjects.${item.subject}`) }}</td>
           <td>{{ $t(item.status) }}</td>
 
           <td>
