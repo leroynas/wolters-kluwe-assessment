@@ -1,9 +1,15 @@
 <template>
   <div class="container">
-    <div class="row">
-      <Overview :items="items" @addItem="addItem" @updateItem="updateItem" />
+    <h1>Helpdesk v1.0</h1>
 
-      <Statistics :items="items" />
+    <div class="row">
+      <div class="col-lg-6">
+        <Overview :items="items" @addItem="addItem" @updateItem="updateItem" />
+      </div>
+
+      <div class="col-lg-6">
+        <Statistics :items="items" />
+      </div>
     </div>
   </div>
 </template>
@@ -12,12 +18,15 @@
 import { defineComponent, ref } from 'vue';
 import { v4 as uuid } from 'uuid';
 
-enum STATUSES {
+import Overview from './views/Overview.vue';
+import Statistics from './views/Statistics.vue';
+
+export enum STATUSES {
   OPEN = 'open',
   CLOSED = 'closed',
 }
 
-type Item = {
+export type Item = {
   id: string;
   name: string;
   subject: string;
@@ -40,6 +49,11 @@ const INIT_ITEMS: Item[] = [
 ];
 
 export default defineComponent({
+  components: {
+    Overview,
+    Statistics,
+  },
+
   setup() {
     const items = ref(INIT_ITEMS);
 
@@ -61,3 +75,33 @@ export default defineComponent({
   },
 });
 </script>
+
+<style>
+body {
+  padding: 16px;
+}
+
+h1 {
+  font-size: 1.5rem;
+  margin: 8px;
+}
+
+.container {
+  max-width: 100%;
+}
+
+section {
+  border: 1px solid #ccc;
+  background-color: #efefef;
+  border-radius: 4px;
+}
+
+h1 select.form-control {
+  max-width: 150px;
+  display: inline-block;
+}
+
+.help-block {
+  color: red;
+}
+</style>
